@@ -1,0 +1,601 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+
+/* ─── Light tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --bg:         #F8F8FB;
+  --surface:    #FFFFFF;
+  --surface2:   #F9FAFE;
+  --inp:        #FFFFFF;
+  --inp-border: #DFE3FA;
+  --sb-bg:      #373B53;
+  --border:     #DFE3FA;
+  --t1:         #0C0E16;
+  --t2:         #7E88C3;
+  --t3:         #888EB0;
+  --purple:     #7C5DFA;
+  --purple-h:   #9277FF;
+  --red:        #EC5757;
+  --red-h:      #FF9797;
+  --green:      #33D69F;
+  --green-bg:   rgba(51, 214, 159, 0.06);
+  --amber:      #FF8F00;
+  --amber-bg:   rgba(255, 143, 0, 0.06);
+  --draft-c:    #373B53;
+  --draft-bg:   rgba(55, 59, 83, 0.06);
+  --sh:         0 10px 20px rgba(72, 84, 159, 0.10);
+  --sh2:        0 4px 6px rgba(72, 84, 159, 0.06);
+  --sw:         103px;
+}
+
+/* ─── Dark tokens ──────────────────────────────────────────────────────────── */
+[data-dark="true"] {
+  --bg:         #141625;
+  --surface:    #1E2139;
+  --surface2:   #252945;
+  --inp:        #1E2139;
+  --inp-border: #252945;
+  --sb-bg:      #1E2139;
+  --border:     #252945;
+  --t1:         #FFFFFF;
+  --t2:         #DFE3FA;
+  --t3:         #888EB0;
+  --draft-c:    #DFE3FA;
+  --draft-bg:   rgba(223, 227, 250, 0.06);
+  --sh:         0 10px 20px rgba(0, 0, 0, 0.40);
+  --sh2:        0 4px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+body {
+  font-family: 'League Spartan', sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ─── Layout ───────────────────────────────────────────────────────────────── */
+.layout { display: flex; min-height: 100vh; }
+
+/* ─── Sidebar ──────────────────────────────────────────────────────────────── */
+.sb {
+  position: fixed; left: 0; top: 0;
+  width: var(--sw); height: 100vh;
+  background: var(--sb-bg);
+  border-radius: 0 20px 20px 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+  z-index: 200; overflow: hidden;
+  transition: background 0.3s;
+}
+.sb-top {
+  width: 100%;
+  background: var(--purple);
+  border-radius: 0 20px 20px 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0;
+  cursor: pointer; position: relative; overflow: hidden;
+}
+.sb-top::after {
+  display: none;
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 20px 20px 0 0;
+}
+.sb-top svg { position: relative; z-index: 1; }
+.sb-bot {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 26px; padding-bottom: 26px;
+}
+.sb-hr { width: 100%; height: 1px; background: rgba(255, 255, 255, 0.08); }
+.sb-ibtn {
+  background: none; border: none; cursor: pointer;
+  color: #888EB0; width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.2s, background 0.2s;
+}
+.sb-ibtn:hover { color: #DFE3FA; background: rgba(255, 255, 255, 0.06); }
+.sb-av {
+  width: 40px; height: 40px; border-radius: 50%;
+  /* border: 2px solid #9277FF; */
+  /* background: var(--purple); */
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: #fff;
+  cursor: pointer; transition: border-color 0.2s;
+}
+.sb-av:hover { border-color: var(--purple-h); }
+
+/* ─── Main content ─────────────────────────────────────────────────────────── */
+.main {
+  margin-left: var(--sw); flex: 1;
+  padding: 72px 48px;
+  max-width: calc(var(--sw) + 780px);
+  transition: filter 0.2s;
+}
+.main.dim { filter: brightness(0.35); pointer-events: none; user-select: none; }
+
+/* ─── Page header ──────────────────────────────────────────────────────────── */
+.ph {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 56px;
+}
+.ph h1 { font-size: 32px; font-weight: 700; letter-spacing: -1.5px; }
+.ph-sub { font-size: 13px; color: var(--t3); margin-top: 6px; font-weight: 500; }
+.ph-r { display: flex; align-items: center; gap: 20px; }
+
+/* ─── Filter ───────────────────────────────────────────────────────────────── */
+.fw { position: relative; }
+.fb {
+  display: flex; align-items: center; gap: 14px;
+  background: none; border: none; cursor: pointer;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--t1); padding: 0; transition: color 0.2s;
+}
+.fb:hover { color: var(--purple); }
+.fc { transition: transform 0.2s; color: var(--purple); display: flex; align-items: center; }
+.fb.open .fc { transform: rotate(180deg); }
+.fd {
+  position: absolute; top: calc(100% + 16px); left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface); border-radius: 8px;
+  box-shadow: var(--sh); padding: 24px; min-width: 192px;
+  z-index: 300; animation: dropIn 0.15s ease;
+}
+@keyframes dropIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.fi-opt {
+  display: flex; align-items: center; gap: 14px;
+  padding: 6px 0; cursor: pointer;
+  font-size: 15px; font-weight: 700; color: var(--t1);
+  user-select: none;
+}
+.fi-opt:hover .fbox { border-color: var(--purple); }
+.fbox {
+  width: 16px; height: 16px; border-radius: 3px;
+  border: 2px solid var(--border); background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; flex-shrink: 0;
+}
+.fbox.on { background: var(--purple); border-color: var(--purple); }
+
+/* ─── New invoice button ───────────────────────────────────────────────────── */
+.btn-new {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--purple); color: #fff;
+  border: none; border-radius: 50px;
+  padding: 16px 16px 16px 8px; cursor: pointer;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px; font-weight: 700;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+.btn-new:hover {
+  background: var(--purple-h); transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(124, 93, 250, 0.35);
+}
+.ni-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0;
+}
+.ni-icon svg { color: var(--purple); }
+
+/* ─── Invoice list ─────────────────────────────────────────────────────────── */
+.inv-list { display: flex; flex-direction: column; gap: 16px; }
+.inv-card {
+  background: var(--surface); border-radius: 8px;
+  border: 1px solid transparent; padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 100px 1fr 160px 150px 116px 14px;
+  align-items: center; gap: 8px; cursor: pointer;
+  box-shadow: var(--sh2);
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.inv-card:hover {
+  border-color: var(--purple); transform: translateY(-2px);
+  box-shadow: var(--sh);
+}
+.inv-card:hover .ic-arr { color: var(--purple); }
+.inv-card:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+.ic-id { font-size: 15px; font-weight: 700; }
+.ic-id span { color: var(--t3); }
+.ic-due, .ic-cli { font-size: 13px; color: var(--t3); font-weight: 500; }
+.ic-cli { text-align: right; }
+.ic-amt { font-size: 16px; font-weight: 700; text-align: right; letter-spacing: -0.5px; }
+.ic-arr { display: flex; justify-content: flex-end; color: var(--purple); }
+
+/* ─── Status badge ─────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 18px; border-radius: 6px;
+  font-size: 13px; font-weight: 700;
+  min-width: 108px; justify-content: center;
+}
+.badge::before {
+  content: ''; width: 8px; height: 8px;
+  border-radius: 50%; background: currentColor; flex-shrink: 0;
+}
+.badge.paid    { color: var(--green); background: var(--green-bg); }
+.badge.pending { color: var(--amber); background: var(--amber-bg); }
+.badge.draft   { color: var(--draft-c); background: var(--draft-bg); }
+
+/* ─── Empty state ──────────────────────────────────────────────────────────── */
+.empty {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 64px 20px; text-align: center;
+  animation: fu 0.4s ease;
+}
+@keyframes fu {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.e-art { width: 260px; margin-bottom: 44px; }
+.empty h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.75px; margin-bottom: 12px; }
+.empty p  { color: var(--t3); font-size: 13px; max-width: 240px; line-height: 1.9; font-weight: 500; }
+
+/* ─── Buttons ──────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: none; cursor: pointer;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px; font-weight: 700;
+  border-radius: 50px; padding: 16px 24px;
+  transition: all 0.2s; white-space: nowrap;
+}
+.btn:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+.btn-edit    { background: var(--surface2); color: var(--t2); }
+.btn-edit:hover { background: var(--border); }
+.btn-del     { background: var(--red); color: #fff; }
+.btn-del:hover { background: var(--red-h); }
+.btn-paid    { background: var(--purple); color: #fff; }
+.btn-paid:hover { background: var(--purple-h); }
+.btn-discard { background: var(--surface2); color: var(--t3); }
+.btn-discard:hover { background: var(--border); }
+[data-dark="true"] .btn-discard { color: var(--t2); }
+.btn-draft   { background: #373B53; color: #888EB0; }
+.btn-draft:hover { background: #0C0E16; color: #fff; }
+[data-dark="true"] .btn-draft { background: var(--surface2); color: var(--t2); }
+[data-dark="true"] .btn-draft:hover { background: var(--border); }
+.btn-send    { background: var(--purple); color: #fff; }
+.btn-send:hover { background: var(--purple-h); }
+.btn-save    { background: var(--purple); color: #fff; }
+.btn-save:hover { background: var(--purple-h); }
+.btn-cancel  { background: var(--surface2); color: var(--t3); }
+.btn-cancel:hover { background: var(--border); }
+[data-dark="true"] .btn-cancel { color: var(--t2); }
+
+/* ─── Detail ───────────────────────────────────────────────────────────────── */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 24px;
+  background: none; border: none; cursor: pointer;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px; font-weight: 700; color: var(--t1);
+  padding: 0; margin-bottom: 32px; transition: color 0.2s;
+}
+.back-btn:hover { color: var(--t3); }
+.back-btn svg { color: var(--purple); }
+.dbar {
+  background: var(--surface); border-radius: 8px;
+  padding: 20px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: var(--sh2); margin-bottom: 24px;
+  flex-wrap: wrap; gap: 12px;
+}
+.dbar-l {
+  display: flex; align-items: center; gap: 18px;
+  font-size: 13px; font-weight: 500; color: var(--t3);
+}
+.dbar-r { display: flex; gap: 8px; flex-wrap: wrap; }
+.dcard {
+  background: var(--surface); border-radius: 8px;
+  padding: 48px; box-shadow: var(--sh2);
+  animation: fu 0.3s ease;
+}
+.dc-top {
+  display: grid; grid-template-columns: 1fr auto;
+  margin-bottom: 48px;
+}
+.dc-id { font-size: 16px; font-weight: 700; }
+.dc-id span { color: var(--t3); }
+.dc-desc { font-size: 13px; color: var(--t3); margin-top: 4px; font-weight: 500; }
+.dc-addr { text-align: right; font-size: 13px; color: var(--t3); font-weight: 500; line-height: 2; }
+.dc-meta {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px; margin-bottom: 48px;
+}
+.mb label {
+  font-size: 13px; color: var(--t3); font-weight: 500;
+  display: block; margin-bottom: 12px;
+}
+.mb p    { font-size: 15px; font-weight: 700; }
+.mb .sub { font-size: 13px; color: var(--t3); font-weight: 500; line-height: 2; }
+.mb-gap  { margin-top: 32px; }
+.tbl-wrap { background: var(--surface2); border-radius: 8px 8px 0 0; overflow: hidden; }
+.tbl-h, .tbl-r {
+  display: grid;
+  grid-template-columns: 1fr 64px 140px 140px;
+  padding: 16px 32px;
+}
+.tbl-h span { font-size: 13px; color: var(--t3); font-weight: 500; }
+.tbl-h span:not(:first-child) { text-align: right; }
+.tbl-r { border-top: 1px solid var(--border); align-items: center; }
+.tr-n { font-size: 15px; font-weight: 700; }
+.tr-q, .tr-p { font-size: 15px; font-weight: 700; color: var(--t3); text-align: right; }
+.tr-t { font-size: 15px; font-weight: 700; text-align: right; }
+.tbl-foot {
+  background: #0C0E16; border-radius: 0 0 8px 8px;
+  padding: 24px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  color: #fff;
+}
+.tbl-foot span   { font-size: 13px; font-weight: 500; }
+.tbl-foot strong { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
+
+/* ─── Form panel ───────────────────────────────────────────────────────────── */
+.pov {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.58);
+  z-index: 400; animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.panel {
+  position: fixed; left: var(--sw); top: 0;
+  width: min(720px, calc(100vw - var(--sw)));
+  height: 100vh; background: var(--bg);
+  z-index: 401; display: flex; flex-direction: column;
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.5);
+  border-radius: 0 20px 20px 0; overflow: hidden;
+  animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background 0.3s;
+}
+@keyframes slideIn {
+  from { transform: translateX(-110%); }
+  to   { transform: translateX(0); }
+}
+.ph2 { padding: 56px 56px 0; flex-shrink: 0; }
+.ph2 h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.75px; }
+.ph2 h2 span { color: var(--t3); }
+.pbody {
+  flex: 1; overflow-y: auto; padding: 40px 56px;
+  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+}
+.pbody::-webkit-scrollbar { width: 7px; }
+.pbody::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.pfoot {
+  padding: 22px 56px; border-top: 1px solid var(--border);
+  background: var(--bg); display: flex; align-items: center; justify-content: flex-end;
+  gap: 8px; flex-shrink: 0; transition: background 0.3s;
+}
+.pfs { flex: 1; }
+
+/* ─── Form fields ──────────────────────────────────────────────────────────── */
+.fsec { margin-bottom: 40px; }
+.fsl { font-size: 13px; font-weight: 700; color: var(--purple); margin-bottom: 24px; }
+.fg  { display: grid; gap: 24px; }
+.fg2 { grid-template-columns: 1fr 1fr; }
+.fg3 { grid-template-columns: 1fr 1fr 1fr; }
+.ff  { display: flex; flex-direction: column; gap: 10px; }
+.ff > label {
+  font-size: 13px; font-weight: 500; color: var(--t2);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ferr-msg { font-size: 11px; color: var(--red); font-weight: 600; }
+.fi {
+  border: 1px solid var(--inp-border); border-radius: 4px;
+  padding: 15px 20px;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--t1); background: var(--inp);
+  outline: none; width: 100%; caret-color: var(--purple);
+  transition: border-color 0.2s, background 0.3s;
+}
+.fi::placeholder { color: var(--t3); font-weight: 500; }
+.fi:focus { border-color: var(--purple); }
+.fi.fe    { border-color: var(--red); }
+.fi-sel {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%237C5DFA' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 20px center;
+  padding-right: 48px; cursor: pointer;
+}
+
+/* ─── Item rows ────────────────────────────────────────────────────────────── */
+.icl {
+  display: grid;
+  grid-template-columns: 1fr 68px 108px 86px 36px;
+  gap: 16px; margin-bottom: 12px;
+}
+.icl span { font-size: 13px; font-weight: 500; color: var(--t3); }
+.ifr {
+  display: grid;
+  grid-template-columns: 1fr 68px 108px 86px 36px;
+  gap: 16px; align-items: center; margin-bottom: 16px;
+}
+.itd { font-size: 15px; font-weight: 700; color: var(--t3); }
+.rm {
+  background: none; border: none; cursor: pointer;
+  color: var(--t3); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 8px; transition: color 0.2s, background 0.2s;
+}
+.rm:hover { color: var(--red); background: rgba(236, 87, 87, 0.08); }
+.add-btn {
+  width: 100%; padding: 16px; border: none; border-radius: 50px;
+  background: var(--surface2); color: var(--t2);
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer; margin-top: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.add-btn:hover { background: var(--border); color: var(--t1); }
+.ferrs {
+  border-left: 3px solid var(--red);
+  background: rgba(236, 87, 87, 0.06);
+  border-radius: 4px; padding: 14px 16px; margin-top: 16px;
+  font-size: 12px; font-weight: 600; color: var(--red); line-height: 2;
+}
+
+/* ─── Delete modal ─────────────────────────────────────────────────────────── */
+.mbg {
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.58);
+  z-index: 600; display: flex; align-items: center;
+  justify-content: center; padding: 24px;
+  animation: fadeIn 0.15s ease;
+}
+.modal {
+  background: var(--surface); border-radius: 8px;
+  padding: 48px; max-width: 480px; width: 100%;
+  box-shadow: var(--sh);
+  animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.modal h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.75px; margin-bottom: 14px; }
+.modal p  { font-size: 13px; color: var(--t3); font-weight: 500; line-height: 1.9; margin-bottom: 32px; }
+.mbtns    { display: flex; gap: 8px; justify-content: flex-end; }
+
+/* ─── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .inv-card { grid-template-columns: 100px 1fr 140px 116px 14px; }
+  .ic-cli   { display: none; }
+}
+
+@media(max-width:768px){
+  :root{--sw:0px;}
+  .sb{position:fixed;top:0;bottom:auto;left:0;width:100vw;height:72px;border-radius:0;flex-direction:row;padding:0 24px;justify-content:space-between;}
+  .sb-top{width:44px;height:44px;border-radius:12px;padding:0;flex-shrink:0;background:var(--purple);}
+  .sb-top::after{display:none;}
+  .sb-bot{flex-direction:row;padding:0;gap:20px;align-items:center;}
+  .sb-hr{display:none;}
+  .main{padding:88px 24px 32px;max-width:100%;}
+  .ph{margin-bottom:36px;}
+  .ph h1{font-size:22px;}
+  .panel{left:0;width:100vw;border-radius:0;top:72px;height:calc(100vh - 72px);}
+  .ph2{padding:32px 24px 0;}
+  .pbody{padding:24px;}
+  .pfoot{padding:20px 24px;}
+  .fg2{grid-template-columns:1fr 1fr;}
+  .fg3{grid-template-columns:1fr 1fr;}
+  .inv-card{grid-template-columns:1fr auto;grid-template-rows:auto auto auto;gap:10px 0;padding:20px;}
+  .ic-id{grid-column:1;grid-row:1;}
+  .ic-cli{display:block;grid-column:2;grid-row:1;text-align:right;}
+  .ic-due{grid-column:1;grid-row:2;}
+  .ic-amt{grid-column:1;grid-row:3;text-align:left;font-size:15px;}
+  .ic-st{grid-column:2;grid-row:2/4;display:flex;align-items:center;justify-content:flex-end;}
+  .ic-arr{display:none;}
+  .dcard{padding:24px;}
+  .dc-top{grid-template-columns:1fr;gap:20px;}
+  .dc-addr{text-align:left;}
+  .dc-meta{grid-template-columns:1fr 1fr;}
+  .tbl-h{display:none;}
+  .tbl-r{grid-template-columns:1fr auto;gap:4px;}
+  .tr-q,.tr-p{display:none;}
+  .dbar{padding:16px 20px;}
+  .ifr{grid-template-columns:1fr 56px 88px 36px;gap:12px;}
+  .icl{grid-template-columns:1fr 56px 88px 36px;gap:12px;}
+  .itd{display:none;}
+}
+;
+/* ── Date Picker ─────────────────────────────────────────────────── */
+.cal-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  gap: 8px;
+}
+
+.cal-trigger span {
+  flex: 1;
+}
+
+.cal-trigger svg {
+  color: var(--purple);
+  flex-shrink: 0;
+}
+
+/* Wrapper takes full width */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+/* Calendar popup */
+.react-datepicker-popper {
+  z-index: 500 !important;
+  padding-top: 4px !important;
+}
+
+/* Calendar container */
+.react-datepicker {
+  font-family: 'League Spartan', sans-serif !important;
+  background: var(--surface) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25) !important;
+  padding: 16px 24px !important;
+}
+.react-datepicker__header {
+  background: var(--surface) !important;
+  border-bottom: none !important;
+  padding: 0 0 16px !important;
+}
+.react-datepicker__current-month {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: var(--t1) !important;
+  margin-bottom: 16px !important;
+}
+.react-datepicker__day-names { margin-bottom: 4px; }
+.react-datepicker__day-name {
+  color: var(--t3) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  width: 32px !important;
+}
+.react-datepicker__day {
+  color: var(--t1) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  border-radius: 4px !important;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  margin: 2px !important;
+}
+.react-datepicker__day:hover {
+  background: var(--surface2) !important;
+  color: var(--purple) !important;
+  border-radius: 4px !important;
+}
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background: var(--purple) !important;
+  border-radius: 50% !important;
+  color: #fff !important;
+}
+.react-datepicker__day--outside-month {
+  color: var(--t3) !important;
+  opacity: 0.4 !important;
+}
+.react-datepicker__navigation {
+  top: 20px !important;
+}
+.react-datepicker__navigation-icon::before {
+  border-color: var(--purple) !important;
+  border-width: 2px 2px 0 0 !important;
+  width: 7px !important;
+  height: 7px !important;
+}
+.react-datepicker__triangle { display: none !important; }
