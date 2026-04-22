@@ -343,7 +343,7 @@ body {
 /* ─── Form panel ───────────────────────────────────────────────────────────── */
 .pov {
   position: fixed; inset: 0;
-  background: rgba(0, 0, 0, 0.58);
+  background: rgba(124, 124, 126, 0.5);
   z-index: 400; animation: fadeIn 0.2s ease;
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
