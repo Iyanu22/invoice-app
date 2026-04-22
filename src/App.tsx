@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ThemeProvider } from "./context/ThemeProvider";
 import { InvoiceProvider } from "./context/InvoiceProvider";
 import { useInvoices } from "./context/useInvoices";
-import Sidebar from "./components/SideBar";
+import Sidebar from "./components/Sidebar";
 import InvoiceList from "./components/InvoiceList";
 import InvoiceDetail from "./components/InvoiceDetail";
 import InvoiceForm from "./components/InvoiceForm";
