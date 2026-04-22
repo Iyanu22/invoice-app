@@ -5,6 +5,7 @@ import type { InvoiceFormValues } from "./invoiceSchema";
 /** Convert a saved Invoice → react-hook-form default values */
 export function invoiceToForm(inv: Invoice): InvoiceFormValues {
   return {
+    createdAt:     inv.createdAt, 
     description:  inv.description,
     paymentTerms: inv.paymentTerms,
     clientName:   inv.clientName,
@@ -61,6 +62,7 @@ export function formToInvoice(
 
 /** Default values for a blank new invoice form */
 export const defaultFormValues: InvoiceFormValues = {
+  createdAt:     new Date().toISOString().split("T")[0], 
   description:  "",
   paymentTerms: 30,
   clientName:   "",
